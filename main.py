@@ -17,9 +17,9 @@ try:
             match = re.search(pattern, row)
             if match:
                 print(row)
-except FileNotFoundError as file_not_found:
+except FileNotFoundError:
     print("File not found")
-except IOError as io_error:
+except IOError:
     print("ioerror")
 
 
