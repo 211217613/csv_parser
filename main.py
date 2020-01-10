@@ -2,7 +2,7 @@ import csv
 import re
 import sys
 
-words = ["Payment", "Adjustment", "Return"]
+HEADER = ["Transaction Date",  "Post Date", "Description", "Category", "Type", "Amount"]
 pattern = "RAPPI"
 
 if len(sys.argv) != 2:
@@ -10,12 +10,16 @@ if len(sys.argv) != 2:
     exit(1)
 
 try:
-    with open(sys.argv[1], "r") as csv_file:
+    with open(sys.argv[1], "r") as csv_file, open("rappi_sales.csv", 'w', newline='') as w:
         transactions = csv.reader(csv_file, delimiter=",")
+        rappi_transactions = csv.writer(w)
+        rappi_transactions.writerow(HEADER)
         for row in transactions:
-            row = ",".join(row)
-            match = re.search(pattern, row)
-            if match:
+            row2 = " ".join(row)
+            print(f"{row}\t\t{row2}")
+            m = re.search(pattern, row2)
+            if m:
+                rappi_transactions.writerow(row)
                 print(row)
 except FileNotFoundError:
     print("File not found")
@@ -24,7 +28,7 @@ except IOError:
 
 
 def main():
-    print("Main")
+    pass
 
 
 if __name__ == "__main__":
