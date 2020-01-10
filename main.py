@@ -11,22 +11,23 @@ if len(sys.argv) != 2:
 
 try:
     with open(sys.argv[1], "r") as csv_file, open("rappi_sales.csv", 'w', newline='') as w:
-        transactions = csv.reader(csv_file, delimiter=",")
-        rappi_transactions = csv.writer(w)
-        rappi_transactions.writerow(HEADER)
-        for row in transactions:
-            row2 = " ".join(row)
-            print(f"{row}\t\t{row2}")
-            m = re.search(PATTERN, row2)
-            if m:
-                rappi_transactions.writerow(row)
-                print(row)
+        try:
+            transactions = csv.reader(csv_file, delimiter=",")
+            rappi_transactions = csv.writer(w)
+            rappi_transactions.writerow(HEADER)
+            for row in transactions:
+                row2 = " ".join(row)
+                print(f"{row}\t\t{row2}")
+                m = re.search(PATTERN, row2)
+                if m:
+                    rappi_transactions.writerow(row)
+                    print(row)
+        except csv.Error as e:
+            sys.exit(f"{e}")
 except FileNotFoundError:
     print("File not found")
 except IOError:
     print("ioerror")
-except csv.Error as e:
-    sys.exit(f"{e}")
 
 
 def main():
