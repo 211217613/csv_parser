@@ -3,7 +3,7 @@ import re
 import sys
 
 HEADER = ["Transaction Date",  "Post Date", "Description", "Category", "Type", "Amount"]
-pattern = "RAPPI"
+PATTERN = "RAPPI"
 
 if len(sys.argv) != 2:
     print("Usage: main.py path-to-csv-file")
@@ -17,7 +17,7 @@ try:
         for row in transactions:
             row2 = " ".join(row)
             print(f"{row}\t\t{row2}")
-            m = re.search(pattern, row2)
+            m = re.search(PATTERN, row2)
             if m:
                 rappi_transactions.writerow(row)
                 print(row)
@@ -25,6 +25,8 @@ except FileNotFoundError:
     print("File not found")
 except IOError:
     print("ioerror")
+except csv.Error as e:
+    sys.exit(f"{e}")
 
 
 def main():
