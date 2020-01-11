@@ -1,0 +1,11 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: 'alpine:3.8'
+
+    steps:
+      - run: echo "HI"
