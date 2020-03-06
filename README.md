@@ -4,3 +4,7 @@
 - upload the sheet.
 
 
+TODO:
+- Parse Schwab statement
+- 2
+- 3
